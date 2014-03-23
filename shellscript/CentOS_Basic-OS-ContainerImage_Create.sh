@@ -133,6 +133,7 @@ yum --config="${TARGET}"/etc/yum.conf \
                dropwatch \
                wireshark \
                supervisor \
+               monit \
                >> ${LOGFILE}
 
 yum -c "${TARGET}"/etc/yum.conf --nogpgcheck --installroot="${TARGET}" -y update >> ${LOGFILE}
