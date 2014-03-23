@@ -55,8 +55,9 @@ echo "options ipv6 disable=1" >> /etc/modprobe.d/ipv6.conf
 echo cloud-init RHEL Disabled IPv6 Function Complete `date` >> ${LOGFILE}
 
 echo cloud-init DockerDaemon_and_DockerRegistry Server Install Start `date` >> ${LOGFILE}
-yum install -y docker-io fedora-dockerfiles bash-completion >> ${LOGFILE}
-yum install -y docker-registry python-jinja2 redis >> ${LOGFILE}
+yum localinstall -y http://kojipkgs.fedoraproject.org//packages/docker-io/0.9.0/3.el6/x86_64/docker-io-0.9.0-3.el6.x86_64.rpm >> ${LOGFILE}
+yum install -y fedora-dockerfiles bash-completion >> ${LOGFILE}
+yum install -y docker-registry python-jinja2 >> ${LOGFILE}
 yum install -y febootstrap xz pxz >> ${LOGFILE}
 echo cloud-init DockerDaemon_and_DockerRegistry Server Install Complete `date` >> ${LOGFILE}
 
@@ -66,8 +67,6 @@ sed -i 's/other_args=/#other_args=/g' /etc/sysconfig/docker
 echo "other_args=\"--debug=true --dns=${DNS_IP}\"" >> /etc/sysconfig/docker
 /sbin/service docker start >> ${LOGFILE}
 /sbin/chkconfig docker on >> ${LOGFILE}
-/sbin/service redis start >> ${LOGFILE}
-/sbin/chkconfig redis on >> ${LOGFILE}
 /sbin/service docker-registry start >> ${LOGFILE}
 /sbin/chkconfig docker-registry on >> ${LOGFILE}
 /usr/bin/curl -v http://localhost:5000 >> ${LOGFILE}
