@@ -62,9 +62,8 @@ yum install -y febootstrap xz pxz >> ${LOGFILE}
 echo cloud-init DockerDaemon_and_DockerRegistry Server Install Complete `date` >> ${LOGFILE}
 
 echo cloud-init DockerDaemon_and_DockerRegistry Server Settings Start `date` >> ${LOGFILE}
-DNS_IP=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`
 sed -i 's/other_args=/#other_args=/g' /etc/sysconfig/docker
-echo "other_args=\"--debug=true --dns=${DNS_IP}\"" >> /etc/sysconfig/docker
+echo "other_args=\"--debug=true --daemon=true --icc=true\"" >> /etc/sysconfig/docker
 /sbin/service docker start >> ${LOGFILE}
 /sbin/chkconfig docker on >> ${LOGFILE}
 /sbin/service docker-registry start >> ${LOGFILE}
