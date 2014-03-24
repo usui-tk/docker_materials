@@ -146,8 +146,6 @@ time /usr/bin/febootstrap-minimize "${TARGET}" \
                                    --keep-rpmdb \
                                    --keep-yum-cache \
                                    --keep-services \
-                                   --keep-sln \
-                                   --keep-ldconfig \
                                    >> ${LOGFILE}
 
 echo CentOS_BasicOS-ContainerImage Customize Complete `date` >> ${LOGFILE}
@@ -190,16 +188,20 @@ time tar --file=${DOCKER_WORKSPACE}/${CENTOS_BASE_CONTAIR_NAME}.tar.xz \
 echo CentOS_BasicOS-ContainerImage Archive Complete `date` >> ${LOGFILE}
 
 
+
 echo CentOS_BasicOS-ContainerImage Import Start `date` >> ${LOGFILE}
 
-time cat ${DOCKER_WORKSPACE}/${CENTOS_BASE_CONTAIR_NAME}.tar.xz | docker import - ${CENTOS_BASE_CONTAIR_NAME}:initial
+export VERSION="$(sed 's/^[^0-9\]*\([0-9.]\+\).*$/\1/' "${TARGET}"/etc/redhat-release)"
+
+time cat ${DOCKER_WORKSPACE}/${CENTOS_BASE_CONTAIR_NAME}.tar.xz | docker import - ${CENTOS_BASE_CONTAIR_NAME}:${VERSION}
 
 echo CentOS_BasicOS-ContainerImage Import Complete `date` >> ${LOGFILE}
 
 
+
 echo CentOS_BasicOS-ContainerImage InitialTest Start `date` >> ${LOGFILE}
 
-docker run -i -t ${CENTOS_BASE_CONTAIR_NAME}:initial echo success >> ${LOGFILE}
+docker run -i -t ${CENTOS_BASE_CONTAIR_NAME}:${VERSION} /bin/echo "Hello World" >> ${LOGFILE}
 
 echo CentOS_BasicOS-ContainerImage InitialTest Complete `date` >> ${LOGFILE}
 
