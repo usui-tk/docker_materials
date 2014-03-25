@@ -45,6 +45,12 @@ yum install -y jq sdparm sg3_utils lsscsi x86info diffstat ps_mem arpwatch dropw
 /sbin/chkconfig tuned on >> ${LOGFILE}
 echo cloud-init RHEL Server Basic Setting Complate `date` >> ${LOGFILE}
 
+echo cloud-init RHEL Enabled IP Forward Start `date` >> ${LOGFILE}
+sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
+/sbin/sysctl -p
+/sbin/sysctl -a | grep -ie "net.ipv4.ip_forward" >> ${LOGFILE}
+echo cloud-init RHEL Disabled IPv6 Function Complete `date` >> ${LOGFILE}
+
 echo cloud-init RHEL Disabled IPv6 Function Start `date` >> ${LOGFILE}
 echo "# Custom sysctl Parameter for ipv6 disable" >> /etc/sysctl.conf
 echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
