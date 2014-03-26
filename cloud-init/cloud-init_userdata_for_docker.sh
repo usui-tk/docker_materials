@@ -61,7 +61,7 @@ echo "options ipv6 disable=1" >> /etc/modprobe.d/ipv6.conf
 echo cloud-init RHEL Disabled IPv6 Function Complete `date` >> ${LOGFILE}
 
 echo cloud-init DockerDaemon_and_DockerRegistry Server Install Start `date` >> ${LOGFILE}
-yum install -y docker-io fedora-dockerfiles bash-completion >> ${LOGFILE}
+yum install -y docker-io fedora-dockerfiles bash-completion python-docker-py >> ${LOGFILE}
 yum install -y docker-registry python-jinja2 redis >> ${LOGFILE}
 yum install -y febootstrap xz pxz >> ${LOGFILE}
 echo cloud-init DockerDaemon_and_DockerRegistry Server Install Complete `date` >> ${LOGFILE}
