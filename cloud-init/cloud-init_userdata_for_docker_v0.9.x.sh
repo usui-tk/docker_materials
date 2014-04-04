@@ -61,7 +61,7 @@ echo "options ipv6 disable=1" >> /etc/modprobe.d/ipv6.conf
 echo cloud-init RHEL Disabled IPv6 Function Complete `date` >> ${LOGFILE}
 
 echo cloud-init DockerDaemon_and_DockerRegistry Server Install Start `date` >> ${LOGFILE}
-yum localinstall -y http://kojipkgs.fedoraproject.org//packages/docker-io/0.9.0/3.el6/x86_64/docker-io-0.9.0-3.el6.x86_64.rpm >> ${LOGFILE}
+yum install -y --enablerepo=epel-testing docker-io >> ${LOGFILE}
 yum install -y fedora-dockerfiles bash-completion python-docker-py >> ${LOGFILE}
 yum install -y docker-registry python-jinja2 redis >> ${LOGFILE}
 yum install -y febootstrap xz pxz >> ${LOGFILE}
